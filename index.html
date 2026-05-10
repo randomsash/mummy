@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Congratulations 💙</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI', sans-serif;
+
+    background:linear-gradient(-45deg,#001845,#003566,#00509d,#001233);
+
+    background-size:400% 400%;
+
+    animation:bgMove 10s ease infinite;
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+
+    overflow-x:hidden;
+    overflow-y:auto;
+
+    padding:40px 0;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* FLOATING EMOJIS */
+
+.floating{
+    position:absolute;
+    animation:float 6s linear infinite;
+    opacity:0.8;
+    pointer-events:none;
+}
+
+@keyframes float{
+
+    0%{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+
+/* ENVELOPE SCREEN */
+
+#envelopeScreen{
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+/* ENVELOPE CONTAINER */
+
+.envelope-container{
+    position:relative;
+
+    width:320px;
+    height:220px;
+
+    cursor:pointer;
+}
+
+/* BLUE ENVELOPE */
+
+.envelope{
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background:#2563eb;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    box-shadow:0 0 40px rgba(0,0,0,0.5);
+}
+
+/* ENVELOPE FLAP */
+
+.flap{
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:0;
+    height:0;
+
+    border-left:160px solid transparent;
+    border-right:160px solid transparent;
+    border-top:120px solid #60a5fa;
+
+    transform-origin:top;
+
+    transition:1s ease;
+
+    z-index:5;
+}
+
+/* HIDDEN LETTER */
+
+.letter{
+    position:absolute;
+
+    width:82%;
+    height:78%;
+
+    background:white;
+
+    left:9%;
+    top:45%;
+
+    border-radius:15px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:#003566;
+
+    font-size:1.3rem;
+    font-weight:bold;
+
+    transition:1s ease;
+
+    z-index:1;
+}
+
+/* OPEN ANIMATION */
+
+.open .flap{
+    transform:rotateX(180deg);
+}
+
+.open .letter{
+    top:5%;
+}
+
+.tapText{
+    margin-top:35px;
+
+    font-size:1.3rem;
+
+    color:#dbeafe;
+
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{opacity:0.5;}
+    50%{opacity:1;}
+    100%{opacity:0.5;}
+}
+
+/* POPUP */
+
+#popup{
+    position:absolute;
+
+    font-size:4rem;
+    font-weight:bold;
+
+    text-align:center;
+
+    opacity:0;
+    transform:scale(0.5);
+
+    transition:0.5s;
+
+    z-index:20;
+
+    text-shadow:
+    0 0 20px white,
+    0 0 35px #93c5fd;
+}
+
+/* SPARKLES */
+
+.sparkle{
+    position:absolute;
+
+    font-size:24px;
+
+    animation:sparkleFloat 3s linear forwards;
+}
+
+@keyframes sparkleFloat{
+
+    from{
+        transform:translateY(0) rotate(0deg);
+        opacity:1;
+    }
+
+    to{
+        transform:translateY(-200px) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* MAIN WEBSITE */
+
+#mainSite{
+    display:none;
+
+    justify-content:center;
+    align-items:flex-start;
+
+    width:100%;
+
+    padding:40px 20px;
+
+    animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* BIGGER CARD */
+
+.card{
+    background:rgba(255,255,255,0.1);
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    border-radius:30px;
+
+    padding:40px;
+
+    width:550px;
+
+    max-width:95%;
+
+    min-height:760px;
+
+    box-shadow:0 0 40px rgba(0,0,0,0.4);
+
+    text-align:center;
+}
+
+h1{
+    font-size:3.3rem;
+
+    margin-bottom:20px;
+
+    text-shadow:
+    0 0 15px #93c5fd,
+    0 0 30px white;
+}
+
+.topHeart{
+    font-size:3rem;
+
+    margin-bottom:20px;
+
+    animation:heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat{
+
+    0%{transform:scale(1);}
+    50%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+}
+
+img{
+    width:300px;
+    height:300px;
+
+    object-fit:cover;
+
+    border-radius:25px;
+
+    border:3px solid rgba(255,255,255,0.3);
+
+    box-shadow:0 0 25px rgba(147,197,253,0.7);
+
+    margin-top:10px;
+}
+
+.note{
+    margin-top:30px;
+
+    line-height:2;
+
+    font-size:1.2rem;
+}
+
+.final{
+    margin-top:40px;
+
+    font-size:1.5rem;
+
+    color:#bfdbfe;
+
+    animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+
+    from{
+        text-shadow:0 0 10px white;
+    }
+
+    to{
+        text-shadow:0 0 25px #93c5fd;
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    #popup{
+        font-size:2.3rem;
+    }
+
+    .card{
+        width:95%;
+        padding:25px;
+    }
+
+    h1{
+        font-size:2.2rem;
+    }
+
+    img{
+        width:220px;
+        height:220px;
+    }
+
+    .note{
+        font-size:1rem;
+    }
+
+    .final{
+        font-size:1.2rem;
+    }
+
+    .envelope-container{
+        width:280px;
+        height:200px;
+    }
+
+    .flap{
+        border-left:140px solid transparent;
+        border-right:140px solid transparent;
+        border-top:100px solid #60a5fa;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- FLOATING EMOJIS -->
+
+<script>
+
+for(let i=0;i<35;i++){
+
+    let item =
+    document.createElement("div");
+
+    item.className = "floating";
+
+    const emojis =
+    ["✨","💙","⭐","🩵"];
+
+    item.innerHTML =
+    emojis[Math.floor(Math.random()*emojis.length)];
+
+    item.style.left =
+    Math.random()*100 + "vw";
+
+    item.style.fontSize =
+    (Math.random()*25 + 15) + "px";
+
+    item.style.animationDuration =
+    (Math.random()*5 + 4) + "s";
+
+    document.body.appendChild(item);
+}
+
+</script>
+
+<!-- ENVELOPE SCREEN -->
+
+<div id="envelopeScreen">
+
+    <div class="envelope-container"
+    onclick="openEnvelope()"
+    id="envelopeBox">
+
+        <div class="envelope"></div>
+
+        <div class="flap"></div>
+
+        <div class="letter">
+            ✨ CONGRATULATIONS ✨
+        </div>
+
+    </div>
+
+    <div class="tapText">
+        Tap the envelope 💌
+    </div>
+
+</div>
+
+<!-- POPUP -->
+
+<div id="popup">
+    ✨ CONGRATULATIONS ✨
+</div>
+
+<!-- MAIN WEBSITE -->
+
+<div id="mainSite">
+
+    <div class="card">
+
+        <h1>CONGRATULATIONS 💙</h1>
+
+        <div class="topHeart">
+            💙
+        </div>
+
+        <img src="pic1.jpg" alt="pic">
+
+        <div class="note">
+
+            Panic: gone ✅ <br>
+            Stress: gone ✅ <br>
+            Happiness: MAXIMUM 😭💙
+
+            <br><br>
+
+            We survived the overthinking together ✨
+
+        </div>
+
+        <div class="final">
+            aww shucks no mothers day 😭💙
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function openEnvelope(){
+
+    const envelope =
+    document.getElementById("envelopeBox");
+
+    envelope.classList.add("open");
+
+    // POPUP AFTER LETTER OPENS
+
+    setTimeout(()=>{
+
+        let popup =
+        document.getElementById("popup");
+
+        popup.style.opacity = "1";
+
+        popup.style.transform = "scale(1)";
+
+        // SPARKLES
+
+        for(let i=0;i<45;i++){
+
+            let sparkle =
+            document.createElement("div");
+
+            sparkle.className = "sparkle";
+
+            const emojis =
+            ["✨","💙","⭐","🩵"];
+
+            sparkle.innerHTML =
+            emojis[Math.floor(Math.random()*emojis.length)];
+
+            sparkle.style.left =
+            Math.random()*100 + "vw";
+
+            sparkle.style.top =
+            Math.random()*100 + "vh";
+
+            sparkle.style.fontSize =
+            (Math.random()*20 + 15) + "px";
+
+            document.body.appendChild(sparkle);
+
+            setTimeout(()=>{
+                sparkle.remove();
+            },3000);
+        }
+
+    },1200);
+
+    // SHOW MAIN WEBSITE
+
+    setTimeout(()=>{
+
+        document.getElementById("envelopeScreen")
+        .style.display = "none";
+
+        document.getElementById("popup")
+        .style.display = "none";
+
+        document.getElementById("mainSite")
+        .style.display = "flex";
+
+    },3500);
+}
+
+</script>
+
+</body>
+</html>
