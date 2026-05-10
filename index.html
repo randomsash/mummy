@@ -14,11 +14,17 @@
 }
 
 body{
-    height:100vh;
-    overflow:hidden;
+    min-height:100vh;
+
+    overflow-x:hidden;
+    overflow-y:auto;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
+    padding:40px 0;
+
     font-family:'Segoe UI', sans-serif;
 
     background: linear-gradient(-45deg,
@@ -39,12 +45,21 @@ body{
     100%{background-position:0% 50%;}
 }
 
+/* CARD */
+
 .card{
-    width:350px;
-    padding:30px;
+    width:500px;
+
+    max-width:95%;
+
+    min-height:850px;
+
+    padding:40px;
+
     border-radius:30px;
 
     background:rgba(255,255,255,0.1);
+
     backdrop-filter:blur(12px);
 
     border:1px solid rgba(255,255,255,0.2);
@@ -54,6 +69,7 @@ body{
     box-shadow:0 0 40px rgba(0,0,0,0.4);
 
     animation:fade 1.5s ease;
+
     z-index:2;
 }
 
@@ -69,7 +85,8 @@ body{
 }
 
 h1{
-    font-size:2.2rem;
+    font-size:3rem;
+
     margin-bottom:15px;
 
     text-shadow:
@@ -78,19 +95,22 @@ h1{
 }
 
 p{
-    line-height:1.6;
-    margin-top:15px;
-    font-size:1rem;
+    line-height:1.9;
+
+    margin-top:20px;
+
+    font-size:1.15rem;
 }
 
 img{
-    width:240px;
-    height:240px;
+    width:250px;
+    height:250px;
+
     object-fit:cover;
 
     border-radius:20px;
 
-    margin-top:15px;
+    margin-top:20px;
 
     border:3px solid rgba(255,255,255,0.3);
 
@@ -111,7 +131,8 @@ img{
 }
 
 button{
-    margin-top:20px;
+    margin-top:25px;
+
     padding:12px 24px;
 
     border:none;
@@ -121,6 +142,7 @@ button{
     color:#003566;
 
     font-weight:bold;
+
     cursor:pointer;
 
     transition:0.3s;
@@ -130,11 +152,18 @@ button:hover{
     transform:scale(1.08);
 }
 
+/* FLOATING ITEMS */
+
 .floating{
     position:absolute;
+
     color:white;
+
     animation:float 6s linear infinite;
+
     opacity:0.7;
+
+    pointer-events:none;
 }
 
 @keyframes float{
@@ -142,13 +171,124 @@ button:hover{
         transform:translateY(100vh) rotate(0deg);
         opacity:0;
     }
+
     20%{
         opacity:1;
     }
+
     100%{
         transform:translateY(-120vh) rotate(360deg);
         opacity:0;
     }
+}
+
+/* ENVELOPE */
+
+#envelopeScreen{
+    position:fixed;
+
+    width:100%;
+    height:100%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+
+    z-index:100;
+}
+
+.envelope-container{
+    position:relative;
+
+    width:300px;
+    height:200px;
+
+    cursor:pointer;
+}
+
+/* ENVELOPE BODY */
+
+.envelope{
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background:#2563eb;
+
+    border-radius:15px;
+
+    box-shadow:0 0 30px rgba(0,0,0,0.5);
+
+    overflow:hidden;
+}
+
+/* FLAP */
+
+.flap{
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:0;
+    height:0;
+
+    border-left:150px solid transparent;
+    border-right:150px solid transparent;
+    border-top:105px solid #60a5fa;
+
+    transform-origin:top;
+
+    transition:1s ease;
+
+    z-index:5;
+}
+
+.open .flap{
+    transform:rotateX(180deg);
+}
+
+.tapText{
+    margin-top:30px;
+
+    font-size:1.2rem;
+
+    color:#dbeafe;
+}
+
+/* POPUP */
+
+#popup{
+    position:fixed;
+
+    font-size:3.5rem;
+
+    font-weight:bold;
+
+    opacity:0;
+
+    transform:scale(0.5);
+
+    transition:0.5s;
+
+    z-index:200;
+
+    text-shadow:
+    0 0 20px white,
+    0 0 35px #93c5fd;
+}
+
+/* MAIN CONTENT */
+
+#mainContent{
+    width:100%;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
 }
 
 </style>
@@ -184,7 +324,7 @@ button:hover{
 
 <!-- MAIN WEBSITE -->
 
-<div id="mainContent" style="display:none;">
+<div id="mainContent">
 
 <div class="card">
 
@@ -193,7 +333,9 @@ button:hover{
     </h1>
 
     <img src="pic1.jpeg" alt="Us">
+
     <img src="pic2.jpeg" alt="Safe">
+
     <p>
         The stress is gone.
         The panic is over.
@@ -208,8 +350,11 @@ button:hover{
         Click Me 💌
     </button>
 
-    <p id="hiddenMessage" style="display:none; margin-top:20px;">
+    <p id="hiddenMessage"
+    style="display:none; margin-top:20px;">
+
         No Mother's Day though 😭
+
     </p>
 
 </div>
@@ -219,6 +364,7 @@ button:hover{
 <script>
 
 function showMessage(){
+
     document.getElementById("hiddenMessage")
     .style.display = "block";
 }
@@ -259,11 +405,13 @@ function openEnvelope(){
 
 setInterval(() => {
 
-    let item = document.createElement("div");
+    let item =
+    document.createElement("div");
 
     item.className = "floating";
 
-    const emojis = ["💙","✨","⭐","🩵"];
+    const emojis =
+    ["💙","✨","⭐","🩵"];
 
     item.innerHTML =
     emojis[Math.floor(Math.random()*emojis.length)];
