@@ -156,6 +156,36 @@ button:hover{
 
 <body>
 
+<!-- ENVELOPE SCREEN -->
+
+<div id="envelopeScreen">
+
+    <div class="envelope-container"
+    onclick="openEnvelope()"
+    id="envelopeBox">
+
+        <div class="envelope"></div>
+
+        <div class="flap"></div>
+
+    </div>
+
+    <div class="tapText">
+        Tap the envelope 💌
+    </div>
+
+</div>
+
+<!-- POPUP -->
+
+<div id="popup">
+    ✨ CONGRATULATIONS ✨
+</div>
+
+<!-- MAIN WEBSITE -->
+
+<div id="mainContent" style="display:none;">
+
 <div class="card">
 
     <h1 class="glow">
@@ -163,14 +193,14 @@ button:hover{
     </h1>
 
     <img src="pic1.jpeg" alt="Us">
-
+    <img src="pic2.jpeg" alt="Safe">
     <p>
         The stress is gone.
         The panic is over.
         And now we can finally breathe again 😭✨
         <br><br>
 
-        Through every scary moment,
+        Through every "YAR" moment,
         I still loved you endlessly 💙
     </p>
 
@@ -179,18 +209,53 @@ button:hover{
     </button>
 
     <p id="hiddenMessage" style="display:none; margin-top:20px;">
-        Officially the happiest boyfriend alive rn 😭💙
+        No Mother's Day though 😭
     </p>
+
+</div>
 
 </div>
 
 <script>
 
 function showMessage(){
-    document.getElementById("hiddenMessage").style.display = "block";
+    document.getElementById("hiddenMessage")
+    .style.display = "block";
 }
 
-// floating hearts/stars
+/* ENVELOPE OPEN */
+
+function openEnvelope(){
+
+    document.getElementById("envelopeBox")
+    .classList.add("open");
+
+    setTimeout(()=>{
+
+        let popup =
+        document.getElementById("popup");
+
+        popup.style.opacity = "1";
+
+        popup.style.transform = "scale(1)";
+
+    },900);
+
+    setTimeout(()=>{
+
+        document.getElementById("envelopeScreen")
+        .style.display = "none";
+
+        document.getElementById("popup")
+        .style.display = "none";
+
+        document.getElementById("mainContent")
+        .style.display = "flex";
+
+    },3000);
+}
+
+/* FLOATING ITEMS */
 
 setInterval(() => {
 
